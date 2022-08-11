@@ -101,7 +101,7 @@ export function track(target: object, key: string) {
     trackEffects(dep)
   }
 }
-
+// 执行副作用函数时使用 effect 封装再执行，这样在内部就能改变当前活动函数，然后将其收入对应的依赖集合中
 export function trackEffects(dep) {
     // 如果已经有了同样的依赖函数， 就直接返回， 不做处理
     if (!dep.has(activeEffect)) {

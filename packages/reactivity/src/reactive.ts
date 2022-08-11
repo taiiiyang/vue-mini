@@ -1,3 +1,4 @@
+import { isObject } from "@vue-mini/shared"
 import { track, trigger } from "./effect"
 
 export function reactive(target:object) {
@@ -21,4 +22,8 @@ export function reactive(target:object) {
     }
 
     return new Proxy(target, handler)
+}
+
+export function toReactive(value) {
+    return isObject(value) ? reactive(value) : value
 }

@@ -2,7 +2,7 @@ export {
     reactive
 } from "./reactive"
 
-export { ref } from "./ref"
+export { ref, proxyRefs,unRef, isRef } from "./ref"
 
 export { effect, stop, ReactiveEffect } from "./effect"
 

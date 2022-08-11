@@ -6,11 +6,8 @@
  * 
  */
 
-
-
-
 const queue: Array<any> = []
-const activePreFlushCbs = []
+const activePreFlushCbs: Array<Function> = []
 
 const p = Promise.resolve()
 let isFlushPending = false
@@ -42,10 +39,35 @@ function queueFlush() {
   nextTick(flushJobs())
 }
 
+export function queuePreFlushCb(cb) {
+    queueCb(cb, activePreFlushCbs)
+}
+
+function queueCb(cb:Function, activeQueue:Function[]) {
+    activeQueue.includes(cb) 
+        ? null
+        : activeQueue.push(cb)
+    // 执行队列
+    queueFlush()
+}
+
+function flushPreFlushCbs() {
+    for (let i = 0; i < activePreFlushCbs.length; i++) {
+        activePreFlushCbs[i]()
+    }
+}
+
 function flushJobs() {
     isFlushPending = false
 
     // 先执行 pre 类型的 jobs
+    // 执行该函数时页面还未渲染
+    flushPreFlushCbs()
+
+    let job
+    while((job = queue.shift())) {
+        if (job) job()
+    }
 }
 
 
