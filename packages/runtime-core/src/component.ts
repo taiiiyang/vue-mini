@@ -20,6 +20,7 @@ export interface Instance {
     setup:null | Function
     render?
     template?
+    name?
   };
   vnode: Vnode;
   next: Object;
@@ -108,6 +109,10 @@ function setupStatefulComponent(instance:Instance) {
         setup && setup(instance.props, setupContext)
     // 将当前实例置空
     setCurrentInstance()
+
+    handleSetupResult(instance, setupResult)
+  } else {
+    finishComponentSetup(instance)
   }
 }
 

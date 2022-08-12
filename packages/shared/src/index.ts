@@ -13,6 +13,9 @@ export const isFunction = (val) => {
     return typeof val === "function"
 }
 
+export const isArray = (val) => {
+    return Array.isArray(val)
+}
 const camelizeRE = /-(\w)/g
 
 export const camelize = (val: string): string => {
