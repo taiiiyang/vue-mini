@@ -6,7 +6,7 @@ export { createVnode as createElementVNode }
 export const createVnode = (
     type: any,
     props?: any,
-    children?: string | Array<any>[]
+    children?: string | Array<Vnode>
 ) => {
     // type 可能为 div 或者组件对象
     const vnode:Vnode = {
@@ -47,7 +47,7 @@ export const normalizeChildren = (vnode:Vnode, children:Children) => {
 export const Text = Symbol("Text");
 export const Fragment = Symbol("Fragment");
 
-export const createTextNode = (text: string = '') => {
+export const createTextVNode = (text: string = '') => {
     return createVnode(Text, {}, text )
 }
 
