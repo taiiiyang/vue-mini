@@ -17,6 +17,19 @@ export interface Node {
     loc: SourceLocation
 }
 
+
+export interface RootNode extends Node {
+    type: NodeTypes.ROOT
+    helpers: symbol[]
+    components: string[]
+    directives: string[]
+    hoists: any[]
+    cached: number
+    temps: number
+    ssrHelpers?: symbol[]
+    codegenNode?
+}
+
 export interface TextNode extends Node {
     type: NodeTypes.TEXT
     content: string

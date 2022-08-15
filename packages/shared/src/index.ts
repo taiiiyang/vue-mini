@@ -57,3 +57,7 @@ export const hyphenate = (str: string) =>
 export const isEmptyObject = (obj:object) => {
     return Object.keys(obj).length === 0
 }
+
+export const isEmptyArray = (val) => {
+    return Array.isArray(val) && val.length === 0
+}
