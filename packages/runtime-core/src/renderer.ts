@@ -510,7 +510,7 @@ export function createRenderer(options) {
 
   return {
     render,
-    createApp: createAppAPI
+    createApp: createAppAPI(render)
   }
 }
 
