@@ -4,7 +4,7 @@
  *
  */
 
-import { NodeTypes, ElementTypes } from "./ast";
+import { NodeTypes, ElementTypes, RootNode } from "./ast";
 
 const enum TagType {
   Start,
@@ -64,7 +64,7 @@ function parseChildren(ctx: Context, ancestors: any[]) {
   return {};
 }
 // 递归解析 children 并将整颗数返回
-function createRoot(children) {
+function createRoot(children):RootNode {
     return {
         type: NodeTypes.ROOT,
         children,

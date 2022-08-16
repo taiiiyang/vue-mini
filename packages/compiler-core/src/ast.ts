@@ -1,3 +1,6 @@
+import { Context } from "./codegen"
+import { CREATE_ELEMENT_VNODE } from "./runtimeHelpers"
+
 export const enum NodeTypes {
     TEXT,
     ROOT,
@@ -14,20 +17,15 @@ export const enum ElementTypes {
 
 export interface Node {
     type: NodeTypes,
-    loc: SourceLocation
 }
 
 
 export interface RootNode extends Node {
     type: NodeTypes.ROOT
     helpers: symbol[]
-    components: string[]
-    directives: string[]
-    hoists: any[]
-    cached: number
-    temps: number
-    ssrHelpers?: symbol[]
+    components?: string[]
     codegenNode?
+    children?
 }
 
 export interface TextNode extends Node {
@@ -58,4 +56,31 @@ export interface BaseElementNode extends Node {
     tag: string
     props: Array<any>
     children: Array<AttributeNode>
+}
+
+export function createInterpolation(content) {
+    return {
+        type: NodeTypes.INTERPOLATION,
+        content
+    }
+}
+
+export function createSimpleExpression(content) {
+    return {
+        type: NodeTypes.SIMPLE_EXPRESSION,
+        content
+    }
+}
+
+export function createVNodeCall(context:Context, tag, props?, children?) {
+
+    if (context) {
+        context.helper(CREATE_ELEMENT_VNODE)
+    }
+    return {
+        tag,
+        type: NodeTypes.ELEMENT,
+        props,
+        children
+    }
 }
